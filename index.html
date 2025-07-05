@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>چت‌بات هوشمند ایرانی</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app-container">
+        <div id="name-modal">
+            <h2>به چت‌بات هوشمند ایرانی خوش آمدید!</h2>
+            <p>لطفاً نام خود را وارد کنید:</p>
+            <input type="text" id="name-input" placeholder="نام شما...">
+            <button id="submit-name-btn">ورود</button>
+        </div>
+
+        <div id="chat-container" class="hidden">
+            <header>
+                <h1>چت با هوش مصنوعی</h1>
+                <p>شما با <span id="user-name-display"></span> در حال گفتگو هستید.</p>
+            </header>
+            <div id="chat-box">
+                <!-- پیام‌ها در اینجا نمایش داده می‌شوند -->
+            </div>
+            <div id="input-area">
+                <input type="text" id="message-input" placeholder="پیام خود را بنویسید...">
+                <button id="send-message-btn">ارسال</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
