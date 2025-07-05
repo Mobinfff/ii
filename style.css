@@ -1,0 +1,572 @@
+@font-face {
+    font-family: 'Vazirmatn';
+    src: url('fonts/Vazirmatn-Regular.woff2') format('woff2');
+    font-weight: normal; /* 400 */
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Vazirmatn';
+    src: url('fonts/Vazirmatn-Medium.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Vazirmatn';
+    src: url('fonts/Vazirmatn-Bold.woff2') format('woff2');
+    font-weight: bold; /* 700 */
+    font-style: normal;
+    font-display: swap;
+}
+
+/* :root {
+    --primary-color: #2EC4B6;
+    --secondary-color: #4A90E2;
+    --background-light: #FDFDFD;
+    --background-chat: #F0F2F5;
+    --text-dark: #212121;
+    --text-light: #757575;
+    --message-bot-bg: #FFFFFF;
+    --message-user-bg: var(--primary-color);
+    --danger-color: #e74c3c;
+} */
+
+:root {
+    --primary-color: #00857F; /* آبی فیروزه‌ای تیره‌تر و سنگین‌تر */
+    --secondary-color: #005A5F; /* برای هاور و تاکید */
+    --background-light: #FAFAFA;
+    --background-chat: #E8ECEF; /* کمی تیره‌تر برای کنتراست بهتر */
+    --text-dark: #1A1A1A; /* مشکی نرم */
+    --text-light: #666666; /* خاکستری برای متون ثانویه */
+    --message-bot-bg: #FFFFFF;
+    --message-user-bg: var(--primary-color);
+    --danger-color: #D32F2F; /* قرمز برای خطا */
+    --border-color: #DDE2E5; /* رنگ برای جداکننده‌ها و حاشیه‌ها */
+
+    --font-size-base: 16px;
+    --font-size-small: 14px;
+    --font-size-large: 20px;
+
+    --border-radius-soft: 8px;
+    --border-radius-messages: 18px;
+    --box-shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.08);
+
+    /* متغیرهای حالت تاریک */
+    --dark-primary-color: #1ABC9C; /* سبز روشن‌تر برای حالت تاریک */
+    --dark-secondary-color: #16A085;
+    --dark-background-light: #1E272E; /* پس زمینه اصلی بسیار تیره */
+    --dark-background-chat: #2C3A47; /* پس زمینه چت کمی روشن‌تر */
+    --dark-text-dark: #EAEAEA; /* متن اصلی روشن */
+    --dark-text-light: #B0B0B0; /* متن ثانویه کمی تیره‌تر */
+    --dark-message-bot-bg: #3B4A5A; /* پس زمینه پیام بات */
+    --dark-message-user-bg: var(--dark-primary-color);
+    --dark-border-color: #4A5568; /* رنگ حاشیه تیره‌تر */
+    --dark-box-shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.25);
+
+    /* Colors for Glassmorphism text & elements on light bg */
+    --glass-text-light-bg: #0D1B2A; /* Dark text on light glass */
+    --glass-text-secondary-light-bg: #415A77;
+    --glass-icon-light-bg: #0D1B2A;
+
+    /* Colors for Glassmorphism text & elements on dark bg */
+    --glass-text-dark-bg: #E0E1DD;  /* Light text on dark glass */
+    --glass-text-secondary-dark-bg: #AABBCB;
+    --glass-icon-dark-bg: #E0E1DD;
+
+    /* Focus colors for inputs */
+    --primary-color-focus: rgba(0, 133, 127, 0.2); /* Alpha version of primary-color */
+    --dark-primary-color-focus: rgba(26, 188, 156, 0.3); /* Alpha version of dark-primary-color */
+}
+
+
+body {
+    font-family: 'Vazirmatn', sans-serif;
+    /* New background gradient */
+    background: linear-gradient(135deg, #0D1B2A 0%, #1B263B 25%, #415A77 50%, #778DA9 75%, #E0E1DD 100%);
+    /* Fallback for browsers that don't support gradient or backdrop-filter well */
+    background-color: var(--background-light); 
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: var(--text-dark);
+    font-size: var(--font-size-base);
+    line-height: 1.6;
+    transition: background-color 0.3s ease, color 0.3s ease; /* انیمیشن کلی برای تغییر تم */
+    color: var(--glass-text-light-bg); /* Default text color for light mode with glass */
+}
+
+body.dark-mode {
+    color: var(--glass-text-dark-bg); /* Default text color for dark mode with glass */
+     /* Dark mode gradient background */
+    background: linear-gradient(135deg, #080D13 0%, #151B26 25%, #2A3447 50%, #3E4A61 75%, #52607D 100%);
+}
+
+
+#app-container {
+    width: 100%;
+    max-width: 700px;
+    height: 90vh;
+    max-height: 800px;
+    /* Glassmorphism effect */
+    background-color: rgba(255, 255, 255, 0.1); /* More transparent for light mode */
+    backdrop-filter: blur(25px) saturate(160%);
+    -webkit-backdrop-filter: blur(25px) saturate(160%); /* Safari support */
+    border-radius: 20px; /* Softer, more modern radius */
+    border: 1px solid rgba(220, 220, 220, 0.25); /* Lighter border for light glass */
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.15); /* Lighter shadow */
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: background-color 0.5s ease, box-shadow 0.5s ease, backdrop-filter 0.5s ease;
+}
+
+body.dark-mode #app-container {
+    background-color: rgba(15, 20, 25, 0.2); /* Darker glass for dark mode */
+    border: 1px solid rgba(80, 90, 100, 0.3); 
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.25);
+}
+
+
+/* Modal برای دریافت نام */
+#name-modal {
+    padding: 40px;
+    text-align: center;
+    /* Glassmorphism for modal too, or a solid contrasting background */
+    background-color: rgba(255, 255, 255, 0.15); /* Consistent with app-container or slightly more opaque */
+    backdrop-filter: blur(15px) saturate(150%);
+    -webkit-backdrop-filter: blur(15px) saturate(150%);
+    border-radius: var(--border-radius-soft); 
+    margin: auto; 
+    box-shadow: var(--box-shadow-soft); /* Use the variable for consistency */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, backdrop-filter 0.3s ease;
+    color: var(--glass-text-light-bg); /* Ensure text is readable */
+}
+body.dark-mode #name-modal {
+    background-color: rgba(20, 25, 30, 0.25);
+    color: var(--glass-text-dark-bg);
+}
+
+
+#name-modal h2 {
+    color: var(--primary-color); /* Will be overridden by dark-mode vars */
+    margin-bottom: 20px;
+    font-size: 1.8em; 
+    font-weight: 500; 
+}
+/* No specific dark mode for h2 needed if var(--primary-color) is correctly overridden */
+
+#name-modal p {
+    margin-bottom: 25px;
+    color: var(--glass-text-secondary-light-bg); /* Use glass specific secondary text */
+    font-size: 1.1em;
+}
+body.dark-mode #name-modal p {
+    color: var(--glass-text-secondary-dark-bg);
+}
+
+
+#name-input {
+    width: calc(100% - 24px);
+    padding: 12px;
+    margin-bottom: 25px;
+    border: 1px solid rgba(200, 200, 200, 0.4); /* Lighter border for glass */
+    border-radius: var(--border-radius-soft);
+    box-sizing: border-box;
+    font-size: 1em;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    background-color: rgba(255,255,255,0.3); /* Semi-transparent input bg */
+    color: var(--glass-text-light-bg);
+}
+#name-input:focus {
+    outline: none;
+    border-color: var(--primary-color); /* Will adapt to dark/light mode */
+    box-shadow: 0 0 0 2px var(--primary-color-focus, rgba(0, 133, 127, 0.2)); /* Define --primary-color-focus in :root and dark-mode */
+    background-color: rgba(255,255,255,0.5);
+}
+body.dark-mode #name-input {
+    border: 1px solid rgba(70, 80, 90, 0.5);
+    background-color: rgba(0,0,0,0.2);
+    color: var(--glass-text-dark-bg);
+}
+body.dark-mode #name-input:focus {
+    background-color: rgba(0,0,0,0.3);
+    box-shadow: 0 0 0 2px var(--primary-color-focus-dark, rgba(26, 188, 156, 0.3));
+}
+
+#submit-name-btn {
+    background-color: var(--primary-color);
+    color: var(--message-bot-bg); /* Light text on primary color */
+    padding: 12px 25px;
+    border: none;
+    border-radius: var(--border-radius-soft);
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+body.dark-mode #submit-name-btn {
+    color: var(--dark-background-light); /* Dark text on dark primary */
+}
+
+#submit-name-btn:hover {
+    background-color: var(--secondary-color);
+}
+
+/* بخش چت */
+#chat-container {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; 
+    overflow: hidden; 
+}
+
+#chat-container header {
+    /* background: linear-gradient(to right, var(--primary-color), var(--secondary-color)); */
+    background-color: rgba(0,0,0,0.1); /* Subtle transparent header */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: var(--glass-text-light-bg);
+    padding: 12px 20px; 
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05); /* Softer shadow */
+    z-index: 10;
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    border-bottom: 1px solid rgba(200,200,200,0.2);
+}
+body.dark-mode #chat-container header {
+    background-color: rgba(0,0,0,0.2);
+    color: var(--glass-text-dark-bg);
+    border-bottom: 1px solid rgba(70,80,90,0.3);
+}
+
+
+#header-content {
+    text-align: center; 
+    flex-grow: 1; 
+}
+
+
+#chat-container header h1 {
+    margin: 0;
+    font-size: 1.6em;
+    font-weight: 500;
+}
+
+#chat-container header p {
+    margin: 5px 0 0;
+    font-size: 0.95em;
+    opacity: 0.8; /* Slightly more opaque for readability on glass */
+}
+
+#chat-box {
+    flex-grow: 1;
+    padding: 20px;
+    overflow-y: auto;
+    background-color: transparent; /* Chatbox itself is transparent, app-container has the glass */
+}
+
+/* Custom scrollbar for chat-box */
+#chat-box::-webkit-scrollbar {
+    width: 8px;
+}
+
+#chat-box::-webkit-scrollbar-track {
+    background: rgba(0,0,0,0.05); /* Subtle track */
+}
+body.dark-mode #chat-box::-webkit-scrollbar-track {
+    background: rgba(255,255,255,0.05);
+}
+
+
+#chat-box::-webkit-scrollbar-thumb {
+    background-color: var(--primary-color);
+    border-radius: 10px;
+    border: 2px solid transparent; /* Make border transparent to blend with glass */
+}
+#chat-box::-webkit-scrollbar-thumb:hover {
+    background-color: var(--secondary-color);
+}
+
+
+.message {
+    display: flex; 
+    flex-direction: column;
+    margin-bottom: 18px;
+    padding: 12px 18px;
+    border-radius: var(--border-radius-messages);
+    max-width: 75%; 
+    line-height: 1.5;
+    opacity: 0; 
+    transform: translateY(10px); 
+    animation: fadeInMessage 0.4s ease forwards;
+    position: relative; 
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* Subtle shadow for messages */
+}
+
+@keyframes fadeInMessage {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.user-message {
+    background-color: var(--message-user-bg); /* Uses primary color, adapts to dark/light */
+    color: var(--message-bot-bg); /* Text color is opposite of user bg, usually light */
+    margin-right: auto;
+    border-bottom-right-radius: var(--border-radius-soft); 
+}
+body.dark-mode .user-message {
+    color: var(--dark-background-light); /* Ensure contrast for dark mode user messages */
+}
+
+
+.bot-message {
+    background-color: var(--message-bot-bg); /* Adapts to dark/light */
+    color: var(--text-dark); /* Adapts to dark/light */
+    border: 1px solid var(--border-color); /* Adapts to dark/light */
+    margin-left: auto;
+    border-bottom-left-radius: var(--border-radius-soft); 
+}
+
+.message .sender {
+    font-weight: 500; 
+    margin-bottom: 6px;
+    font-size: var(--font-size-small);
+    color: var(--text-light); /* Adapts to dark/light */
+}
+
+.user-message .sender {
+    color: rgba(255, 255, 255, 0.85); /* Default for light primary */
+}
+body.dark-mode .user-message .sender {
+    color: rgba(20, 20, 20, 0.85); /* Darker text for dark primary */
+}
+
+
+.message .text {
+    font-size: 0.95em;
+    word-wrap: break-word; 
+}
+
+
+#input-area {
+    display: flex;
+    align-items: center; 
+    padding: 12px 15px;
+    background-color: rgba(255,255,255,0.1); /* Slightly transparent input area */
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border-top: 1px solid rgba(200,200,200,0.2); /* Lighter top border */
+    /* box-shadow: 0 -2px 5px rgba(0,0,0,0.05); No need for this if app-container has shadow */
+}
+body.dark-mode #input-area {
+    background-color: rgba(0,0,0,0.15);
+    border-top: 1px solid rgba(70,80,90,0.3);
+}
+
+
+#message-input {
+    flex-grow: 1;
+    padding: 12px 18px;
+    border: 1px solid rgba(200,200,200,0.3); /* Lighter border */
+    border-radius: 25px; 
+    margin-left: 10px;
+    font-size: 1em;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    background-color: rgba(255,255,255,0.2); /* More transparent input */
+    color: var(--glass-text-light-bg);
+}
+#message-input:focus {
+    outline: none;
+    border-color: var(--primary-color); 
+    box-shadow: 0 0 0 2px var(--primary-color-focus, rgba(0, 133, 127, 0.2));
+    background-color: rgba(255,255,255,0.4);
+}
+body.dark-mode #message-input {
+    border: 1px solid rgba(70,80,90,0.4);
+    background-color: rgba(0,0,0,0.25);
+    color: var(--glass-text-dark-bg);
+}
+body.dark-mode #message-input:focus {
+    background-color: rgba(0,0,0,0.35);
+     box-shadow: 0 0 0 2px var(--primary-color-focus-dark, rgba(26, 188, 156, 0.3));
+}
+
+#send-message-btn {
+    background-color: var(--primary-color);
+    color: var(--message-bot-bg); /* Light icon on primary */
+    padding: 0; 
+    width: 48px; 
+    height: 48px; 
+    border: none;
+    border-radius: 50%; 
+    cursor: pointer;
+    font-size: 1.1em; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+body.dark-mode #send-message-btn {
+    color: var(--dark-background-light); /* Dark icon on dark primary */
+}
+
+
+#send-message-btn:hover {
+    background-color: var(--secondary-color);
+    transform: scale(1.05);
+}
+#send-message-btn:active {
+    transform: scale(0.95);
+}
+
+#send-message-btn svg {
+    width: 24px; 
+    height: 24px; 
+    fill: currentColor; /* Use color from parent button */
+}
+
+#clear-chat-btn {
+    background: none;
+    border: none;
+    color: var(--glass-icon-light-bg); /* Use glass specific icon color */
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+body.dark-mode #clear-chat-btn {
+    color: var(--glass-icon-dark-bg);
+}
+
+#clear-chat-btn svg {
+    width: 22px; 
+    height: 22px;
+    fill: currentColor; /* Use color from parent button */
+}
+
+#clear-chat-btn:hover {
+    background-color: rgba(0, 0, 0, 0.05); /* Subtle hover for light mode */
+}
+body.dark-mode #clear-chat-btn:hover {
+    background-color: rgba(255, 255, 255, 0.08); /* Subtle hover for dark mode */
+}
+
+#clear-chat-btn:active {
+    background-color: rgba(0,0,0,0.1);
+}
+body.dark-mode #clear-chat-btn:active {
+    background-color: rgba(255,255,255,0.12);
+}
+
+
+#theme-toggle-btn {
+    background: none;
+    border: none;
+    color: var(--glass-icon-light-bg); /* Use glass specific icon color */
+    cursor: pointer;
+    padding: 8px; 
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    margin-right: 5px; 
+}
+body.dark-mode #theme-toggle-btn {
+    color: var(--glass-icon-dark-bg);
+}
+
+
+#theme-toggle-btn svg {
+    width: 22px;
+    height: 22px;
+    fill: currentColor; /* Use color from parent button */
+}
+
+#theme-toggle-btn:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+body.dark-mode #theme-toggle-btn:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+#theme-toggle-btn:active {
+    background-color: rgba(0,0,0,0.1);
+}
+body.dark-mode #theme-toggle-btn:active {
+    background-color: rgba(255,255,255,0.12);
+}
+
+
+/* کلاس برای پنهان کردن عناصر */
+.hidden {
+    display: none !important;
+}
+
+/* Dark Mode Styles - Redefined for Glassmorphism */
+/* The main variables are already defined in :root and overridden by body.dark-mode */
+/* We just need to ensure elements using non-variable colors or specific light/dark logic are handled */
+
+body.dark-mode #name-input:focus {
+    /* Ensure this uses the dark mode primary color for focus */
+     box-shadow: 0 0 0 2px var(--dark-primary-color-focus, rgba(26, 188, 156, 0.3));
+}
+body.dark-mode #message-input:focus {
+    /* Ensure this uses the dark mode primary color for focus */
+     box-shadow: 0 0 0 2px var(--dark-primary-color-focus, rgba(26, 188, 156, 0.3));
+}
+
+
+/* Specific overrides for glassmorphism if needed, beyond variable changes */
+/* For example, if an element's light mode had a white bg, in dark mode it might need a dark bg */
+/* Most of this should be handled by the variable overrides in body.dark-mode */
+
+/* Re-check scrollbar for dark mode with new glass bg */
+body.dark-mode #chat-box::-webkit-scrollbar-thumb {
+    background-color: var(--dark-primary-color); /* Already set by var */
+    border-color: transparent; /* Ensure border blends with dark glass */
+}
+
+
+/* Style for Copy Button on Bot Messages */
+.bot-message .copy-btn {
+    background: none;
+    border: none;
+    color: var(--text-light); /* Adapts to dark/light via variable */
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    position: absolute; 
+    top: 8px;
+    inset-inline-start: 8px; 
+    opacity: 0.6;
+    transition: opacity 0.2s ease, color 0.2s ease;
+}
+
+.bot-message:hover .copy-btn {
+    opacity: 1;
+}
+
+.bot-message .copy-btn:hover {
+    color: var(--primary-color); /* Adapts to dark/light via variable */
+}
+
+.bot-message .copy-btn svg {
+    display: block; 
+    fill: currentColor;
+}
+
+/* Dark mode for copy button is implicitly handled by var(--text-light) and var(--primary-color) changing */
+/* No specific override needed unless behavior should be drastically different */
